@@ -33,12 +33,49 @@ Datasets
 ========
 Wikipedia Corpus  
 
+Index Generating Approach
+=========================
+1. Tokenized  
+2. StopWord removal  
+3. Stemming  
+4. Lower case  
+5. Diacritics normalization  
+6. Per page extracted stringkeys in various sections(title, body, link, infobox, categories) keeping into account term frequency of each key.     
+
+Each section is given different relevant weights.  
+The whole idea is implemented by using various indexes:  
+<b>Index1: (posting list + secondary index)</b>  
+7. Applied MultiWay MergeSort over docs sorted on keys.  
+8. Created final Posting list by using TF-IDF, with docId is ranked by weights  
+
+KeyString1:DocId1:Weight1:DocId2:Weight2:....  
+KeyString2:DocId1:Weight1:DocId2:Weight2:....  
+
+<b>Index2: (per document)</b>  
+7. Each docId has been mapped to all categories, infobox keys, text found in that doc.  
+
+DocId1:c:categoryString1:categoryString2...  
+DocId1:i:infoboxKey1:infoboxKey2...  
+DocId1:t:textWord1:textWord2...   
+The index is sorted on numeric DocID. 
+
+<b>Index3: (classifier list + secondary index)</b>  
+7. Mapping each keyString to all its respective docIds for category, infobox and text field.  
+
+keyString:c:DocId1,DocId2....  
+keyString:i:DocId1,DocId2....  
+keyString:t:DocId1,DocId2....  
+
+<b>Index4: (title id mapping + secondary index)</b>  
+7. DocId:Title mapping for showing title as output in the end.  
+DocId1:title1  
+DocId2:titile2  
+
 How to RUN
 ==========
 
-Code is not yet completed, way more to go.
-Currently our code is creating different indexes.  
-1. Just download the .zip file then open it in eclipse  
-2. Create another folder named index inside extracted .zip folder  
-3. Run this source using run in eclipse  
+1. Just download the src and bin folder
+2. Create another folder named index along with above folders
+3. This index folder will contain all the indexes that we have discussed above, but could not upload it here because of its large size in GB's
+4. Run the source in eclipse (if you have the indexes :p)  
 
